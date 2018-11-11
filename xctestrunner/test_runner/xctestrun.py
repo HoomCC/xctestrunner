@@ -449,6 +449,13 @@ class XctestRunFactory(object):
 
       app_under_test_signing_identity = bundle_util.GetCodesignIdentity(
           self._app_under_test_dir)
+
+      # Magic logic 
+      xctrunner_app_signing_identity = self._signing_options.get(
+            'xctrunner_app_signing_identity')
+      if xctrunner_app_signing_identity:
+        app_under_test_signing_identity = xctrunner_app_signing_identity
+
       bundle_util.CodesignBundle(
           xctest_framework, identity=app_under_test_signing_identity)
       bundle_util.CodesignBundle(
